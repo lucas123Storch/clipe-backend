@@ -20,6 +20,7 @@ use Spatie\MediaLibrary\{HasMedia, InteractsWithMedia};
  * @property string $phone
  * @property string $marital_status
  * @property string $gender
+ * @property boolean $admin
  * @property string $password
  * @property Carbon|null $email_verified_at
  * @property Carbon $created_at
@@ -48,8 +49,14 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
         'password' => Password::class,
         'phone' => Phone::class,
-        'cpf' => CPF::class
+        'cpf' => CPF::class,
+        'admin' => 'boolean'
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->admin;
+    }
 
     public function getAvatarAttribute(): string
     {

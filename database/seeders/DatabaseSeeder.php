@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'admin',
-            'email' => 'admin@clipe.com.br'
+            'email' => 'admin@clipe.com.br',
+            'admin' => true
         ]);
     }
 }

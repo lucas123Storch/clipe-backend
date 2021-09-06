@@ -17,6 +17,7 @@ class CrudResource extends BaseResource
             'phone' => $this->phone,
             'marital_status' => $this->marital_status,
             'gender' => $this->gender,
+            'admin' => $this->isAdmin(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

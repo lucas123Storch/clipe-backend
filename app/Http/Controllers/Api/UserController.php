@@ -41,7 +41,11 @@ class UserController extends ApiController
 
     public function update(UserRequest $request, User $user): JsonResponse
     {
-        $user->update($request->safe()->except('avatar'));
+        $user->update($request->safe()->except('avatar', 'password'));
+
+        if ($password = $request->get('password')) {
+            $user->update(['password' => $password]);
+        }
 
         if ($avatar = $request->get('avatar')) {
             $user->uploadImage($avatar, Str::slug($user->name))->toMediaCollection('avatar');

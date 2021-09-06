@@ -13,6 +13,7 @@ class LoginResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'cpf' => $this->cpf,
+            'admin' => $this->isAdmin(),
             'avatar' => $this->avatar
         ];
     }

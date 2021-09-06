@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Auth;
 
 use App\Enums\Masks;
 use Illuminate\Validation\Rules\Password;
@@ -10,13 +10,13 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property string $name
  * @property string $email
  * @property string $cpf
- * @property string $avatar
  * @property string $phone
  * @property string $gender
  * @property string $marital_status
  * @property string $password
+ * @property string $device_name
  */
-class UserRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -25,17 +25,16 @@ class UserRequest extends FormRequest
 
     public function rules(): array
     {
-        $user = $this->route('user');
-
         return [
             'name' => 'required|string|between:5,70',
-            'email' => 'required|email|max:200|unique:users,email' . ($user ? ",$user->id" : ''),
+            'email' => 'required|email|max:200|unique:users,email',
             'cpf' => 'required|cpf',
             'avatar' => 'nullable|base64image|base64max:300|base64dimensions:ratio=1/1,min_width=200',
             'phone' => 'required|string|between:10,11',
             'gender' => 'required|string|max:30',
             'marital_status' => 'required|string|max:30',
-            'password' => [$user ? 'nullable' : 'required', 'confirmed', Password::defaults()]
+            'password' => ['required', 'confirmed', Password::defaults()],
+            'device_name' => 'required'
         ];
     }
 
